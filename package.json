@@ -15,7 +15,7 @@
     "gatsby": "^2.23.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "@adobe/gatsby-theme-spectrum": "0.0.1"
+    "@adobe/gatsby-theme-spectrum": "0.0.2"
   },
   "scripts": {
     "start": "gatsby build && gatsby serve",
