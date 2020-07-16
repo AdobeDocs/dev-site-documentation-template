@@ -34,5 +34,5 @@ module.exports = {
     }
   },
   plugins: [`@adobe/gatsby-theme-spectrum`],
-  pathPrefix: '/gatsby-theme-spectrum-example'
+  pathPrefix: process.env.PATH_PREFIX || '/gatsby-theme-spectrum-example'
 };
