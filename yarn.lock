@@ -7,16 +7,15 @@
   resolved "https://registry.yarnpkg.com/@adobe/focus-ring-polyfill/-/focus-ring-polyfill-0.1.5.tgz#b20b5bd1ffb0ceaf42aae1f0837f39ce29f9eb9b"
   integrity sha512-OLa/TlzPv6vzMPi3DT9/Gefu/HJptcBcFmMYTpeNTZ6Y+t2TL+CZtjGlu438O2V03c86KEEgMlm9nQ70kW3bPw==
 
-"@adobe/gatsby-theme-spectrum@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-spectrum/-/gatsby-theme-spectrum-0.0.3.tgz#e8e7587fd76787038c12bd015d4a9686f59a192b"
-  integrity sha512-f+1B+CVkWxZAjg8/f5RLq8Q7E4TWTPyGSX3iqyxTbnsETcBuMLbuLrYDyX4dD6DzGAw+YucLwy5WGUorRl73xQ==
+"@adobe/gatsby-theme-spectrum@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-spectrum/-/gatsby-theme-spectrum-0.0.4.tgz#b4380b80ff5be7f4c142a0f364f87b5bc35c2c35"
+  integrity sha512-fPYVZq887BNRmKbhizOUHeVWEf0t5iiPnDKyV6bfnRL07nZXvY/KGIPSun/WAFqHx0I04GYLHJArQLTw1jp8ZA==
   dependencies:
     "@adobe/focus-ring-polyfill" "^0.1.5"
     "@emotion/core" "^10.0.28"
     "@mdx-js/mdx" "^1.6.6"
     "@mdx-js/react" "^1.6.6"
-    "@mdx-js/runtime" "^1.6.6"
     "@react-spectrum/divider" "^3.0.0"
     "@react-spectrum/layout" "^3.0.0"
     "@react-spectrum/provider" "^3.0.0"
