@@ -23,6 +23,6 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "deploy": "npx gh-pages -d public"
+    "deploy": "gatsby clean && gatsby build --prefix-paths && npx gh-pages -d public"
   }
 }
