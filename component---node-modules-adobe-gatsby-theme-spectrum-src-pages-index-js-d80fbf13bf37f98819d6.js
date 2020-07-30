@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{rR6E:function(e,t,n){"use strict";n.r(t);var r=n("q1tI"),b=n("Wbzz"),a=n("rid2"),c=n("zDgs"),i=n("qKvR");t.default=function(){var e=Object(r.useContext)(c.b).siteMetadata,t=Object(b.withPrefix)(e.pages[0].path);return Object(i.b)(a.HelmetProvider,null,Object(i.b)(a.Helmet,null,Object(i.b)("meta",{"http-equiv":"refresh",content:"0; url="+t})))}}}]);
+//# sourceMappingURL=component---node-modules-adobe-gatsby-theme-spectrum-src-pages-index-js-d80fbf13bf37f98819d6.js.map
