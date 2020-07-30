@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-const globalNav = require('@adobe/gatsby-theme-spectrum/globalNav.json');
+const globalNav = require('@adobe/gatsby-theme-parliament/globalNav.json');
 
 globalNav.menus = [globalNav.menus[1]];
 
@@ -116,10 +116,10 @@ module.exports = {
       }
     ],
     github: {
-      repository: 'adobe/gatsby-theme-spectrum-example',
+      repository: 'adobe/gatsby-theme-parliament-example',
       branch: 'main'
     }
   },
-  plugins: [`@adobe/gatsby-theme-spectrum`],
-  pathPrefix: process.env.PATH_PREFIX || '/gatsby-theme-spectrum-example'
+  plugins: [`@adobe/gatsby-theme-parliament`],
+  pathPrefix: process.env.PATH_PREFIX || '/gatsby-theme-parliament-example'
 };
