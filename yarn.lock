@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@adobe/focus-ring-polyfill/-/focus-ring-polyfill-0.1.5.tgz#b20b5bd1ffb0ceaf42aae1f0837f39ce29f9eb9b"
   integrity sha512-OLa/TlzPv6vzMPi3DT9/Gefu/HJptcBcFmMYTpeNTZ6Y+t2TL+CZtjGlu438O2V03c86KEEgMlm9nQ70kW3bPw==
 
-"@adobe/gatsby-theme-spectrum@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-spectrum/-/gatsby-theme-spectrum-0.0.6.tgz#5d2ebbd018af1eb8a9a5b723c7c2ad99ebc5b191"
-  integrity sha512-n5BHECiYauKSCeaB93LAGriYxYjHbfpvN87V2/CejZOrTvIkye3zOl6/8IPFp+kush3QAb7eVDBnAWrv60KtEg==
+"@adobe/gatsby-theme-spectrum@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-spectrum/-/gatsby-theme-spectrum-0.0.7.tgz#324366842fe0052d5ac29b6dbebe0916e1299ea5"
+  integrity sha512-4i+XbSfH9KORuhvuDVDlcQZqgZ/nsXYktHLUqxra26wNOB2OEJJCQbPgeE0zSxzfVqbWXAJy7t37J4nzxLZlpw==
   dependencies:
     "@adobe/focus-ring-polyfill" "^0.1.5"
     "@emotion/core" "^10.0.28"
