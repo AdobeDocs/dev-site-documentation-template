@@ -1,2 +1,2 @@
 (window.webpackJsonp=window.webpackJsonp||[]).push([[24],{dQkX:function(n,t,o){"use strict";o.r(t),o.d(t,"_frontmatter",(function(){return u})),o.d(t,"default",(function(){return s}));var e=o("wx14"),c=o("zLVn"),r=(o("q1tI"),o("7ljp")),a=o("3Dxu"),u=(o("qKvR"),{}),p={_frontmatter:u},i=a.a;function s(n){var t=n.components,o=Object(c.a)(n,["components"]);return Object(r.b)(i,Object(e.a)({},p,o,{components:t,mdxType:"MDXLayout"}),Object(r.b)("h1",{id:"faq"},"FAQ"))}s.isMDXComponent=!0}}]);
-//# sourceMappingURL=component---src-pages-support-faq-index-md-d763023f4f060b22eee8.js.map
+//# sourceMappingURL=component---src-pages-support-faq-index-md-9eabe41660257d5f8bd0.js.map
