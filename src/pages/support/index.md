@@ -1,10 +1,6 @@
 ---
 title: Support - Adobe Analytics
 description: This is the support page of Adobe Analytics 
-contributors:
-  - https://github.com/icaraps
-  - https://github.com/macdonst
-  - https://github.com/simonwex
 ---
 
 <Hero slots="heading, text" background="rgb(19, 93, 183)"/>
@@ -17,7 +13,7 @@ Learn where to ask questions, report bugs, make feature requests, and spark disc
 
 You've got a place to start discussions.
 
-<DiscoverBlock slots="image, heading, link, text" width="100%"/>
+<DiscoverBlock slots="image, heading, link, text"/>
 
 ![Adobe Experience Cloud](experience_cloud.png)
 
@@ -26,6 +22,12 @@ You've got a place to start discussions.
 [Get started](https://adobe.io)
 
 Open discussion and support with community experts and Adobe staff.
+
+<DiscoverBlock slots="link, text"/>
+
+[Experience league](https://adobe.io) 
+
+Tutorials and videos for the community.
 
 ## Community
 

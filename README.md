@@ -1,6 +1,6 @@
 # ⚠ Under Construction  ⚠
 
-`yarn && npm run start`
+`yarn && yarn start`
 
 # Github Contributors
 
