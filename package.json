@@ -1,11 +1,11 @@
 {
   "private": true,
-  "name": "gatsby-theme-parliament-example",
+  "name": "gatsby-theme-parliament-documentation",
   "version": "0.0.1",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/adobe/gatsby-theme-parliament-example"
+    "url": "https://github.com/adobe/gatsby-theme-parliament-documentation"
   },
   "author": {
     "name": "Stephan Ringel",

@@ -127,5 +127,5 @@ module.exports = {
     ]
   },
   plugins: [`@adobe/gatsby-theme-parliament`],
-  pathPrefix: process.env.PATH_PREFIX || '/gatsby-theme-parliament-example'
+  pathPrefix: process.env.PATH_PREFIX || '/gatsby-theme-parliament-documentation'
 };
