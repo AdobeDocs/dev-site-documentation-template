@@ -12,14 +12,14 @@
     "url": "https://github.com/icaraps"
   },
   "dependencies": {
-    "@adobe/gatsby-theme-parliament": "0.0.4",
-    "dotenv": "^8.2.0",
+    "@adobe/gatsby-theme-parliament": "0.0.5",
     "gatsby": "^2.23.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "scripts": {
     "start": "gatsby build && gatsby serve",
+    "start:prefix": "gatsby build --prefix-paths && gatsby serve --prefix-paths",
     "develop": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
