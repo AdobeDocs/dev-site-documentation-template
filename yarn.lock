@@ -16,6 +16,14 @@
   resolved "https://registry.yarnpkg.com/@adobe/focus-ring-polyfill/-/focus-ring-polyfill-0.1.5.tgz#b20b5bd1ffb0ceaf42aae1f0837f39ce29f9eb9b"
   integrity sha512-OLa/TlzPv6vzMPi3DT9/Gefu/HJptcBcFmMYTpeNTZ6Y+t2TL+CZtjGlu438O2V03c86KEEgMlm9nQ70kW3bPw==
 
+"@adobe/gatsby-add-launch-script@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@adobe/gatsby-add-launch-script/-/gatsby-add-launch-script-0.0.3.tgz#b038770b72f74d05ebf8418e54ec0a1d18d76d69"
+  integrity sha512-W3ZmolZvb8WeXSroSZZ1dNTPIDSReBDtXG1k4pDJRWaxanA+ziKWzTcT2gy8wl9qd8xCED0bo0bvvyx4g4ItKA==
+  dependencies:
+    react "^16.13.1"
+    react-dom "^16.13.1"
+
 "@adobe/gatsby-remark-afm@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@adobe/gatsby-remark-afm/-/gatsby-remark-afm-0.6.0.tgz#5de2ab8fd0ebe8e5eea3a7f46ec3feb8f8d51a16"
@@ -33,12 +41,13 @@
     globby "^11.0.1"
     graphql-fetch "^1.0.1"
 
-"@adobe/gatsby-theme-parliament@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-parliament/-/gatsby-theme-parliament-0.0.5.tgz#c2412ba40a69628cf83473e07c4bfc088f3ec002"
-  integrity sha512-BrJykWDdNRpoaIopTzXojDzh3jH/KdduRSm364Sgd/+OcVsmi0Fcqg/WdNGY/EHtPNdNkJXbyXCfJRa+dL/H4Q==
+"@adobe/gatsby-theme-parliament@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-parliament/-/gatsby-theme-parliament-0.0.6.tgz#01f1e584cd2aaa456fb24624dd3eaf3d55b4d5b6"
+  integrity sha512-7qYj12lffuHVN6asS0qAahzprW1tzoHAgxXpfXo7WgI2PcdmQDuc7X0LStVyr5JV9kWyZPYqecyz98A6dxMGmQ==
   dependencies:
     "@adobe/focus-ring-polyfill" "^0.1.5"
+    "@adobe/gatsby-add-launch-script" "^0.0.3"
     "@adobe/gatsby-remark-afm" "^0.6.0"
     "@adobe/gatsby-source-github-file-contributors" "^0.1.1"
     "@adobe/prism-adobe" "^1.0.0"
