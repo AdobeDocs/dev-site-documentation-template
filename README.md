@@ -1,8 +1,7 @@
-# ⚠ Under Construction  ⚠
+# Gatsby Theme Parliament Documentation Template
 
-`yarn && yarn start`
+This is a Gatsby site template built with [Gatsby Theme Parliament](https://github.com/adobe/gatsby-theme-parliament).
 
-# Github Contributors
+View the [demo](https://adobedocs.github.io/gatsby-theme-parliament-documentation/) running on Github Pages.  
 
-1. Copy `.env.example` to `.env`
-2. Add the appropriate Github values in the `.env` file
+Follow the [instructions](https://github.com/adobe/gatsby-theme-parliament#getting-started) to get started.
