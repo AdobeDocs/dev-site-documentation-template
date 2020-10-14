@@ -44,10 +44,10 @@
     globby "^11.0.1"
     graphql-fetch "^1.0.1"
 
-"@adobe/gatsby-theme-parliament@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-parliament/-/gatsby-theme-parliament-2.4.0.tgz#a8be2620421fd6166484ca55d4f4c9ec72104eac"
-  integrity sha512-Us9b1CGWA2rJW+SA9X3XThS+uABF4gh87ziVdFYg4NBcsyeTl/Aqm0D9IkkgnVvp2DSrRY5L+Mn0olBK9+AZPw==
+"@adobe/gatsby-theme-parliament@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@adobe/gatsby-theme-parliament/-/gatsby-theme-parliament-2.6.2.tgz#5c15c9bd212bcfc9e3c214c007d73f7560f60c95"
+  integrity sha512-ZN1lemaeQ0Bm4BTy1E6XShVn+Qe1/XxogN+RtODtbmx6GEugTDnInDW2UdzGG54AVsnYH1lFkhl7rAZulF3X4A==
   dependencies:
     "@adobe/focus-ring-polyfill" "^0.1.5"
     "@adobe/gatsby-add-launch-script" "^0.0.4"
