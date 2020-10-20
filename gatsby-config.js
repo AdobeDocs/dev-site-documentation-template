@@ -151,5 +151,5 @@ module.exports = {
     ]
   },
   plugins: [`@adobe/gatsby-theme-parliament`],
-  pathPrefix: process.env.PATH_PREFIX || '/gatsby-theme-parliament-documentation'
+  pathPrefix: process.env.PATH_PREFIX || '/dev-site-documentation-template/'
 };
