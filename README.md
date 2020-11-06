@@ -1,4 +1,4 @@
-# Gatsby Theme Parliament Documentation Template
+# Adobe I/O Documentation Template
 
 This is a Gatsby site template built with the [Adobe I/O Gatsby Theme](https://github.com/adobe/gatsby-theme-aio).
 
