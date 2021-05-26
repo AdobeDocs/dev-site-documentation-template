@@ -12,6 +12,10 @@
 
 module.exports = {
   siteMetadata: {
+    home: {
+      title: 'Adobe Analytics',
+      path: 'https://adobe.io'
+    },
     versions: [
       {
         title: 'v2.0'
@@ -23,7 +27,7 @@ module.exports = {
     ],
     pages: [
       {
-        title: 'Adobe Analytics',
+        title: 'Overview',
         path: '/'
       },
       {
@@ -32,7 +36,15 @@ module.exports = {
       },
       {
         title: 'API Reference',
-        path: '/api/'
+        menu: [{
+          title: 'API Reference v2.0',
+          description: 'Adobe Analytics Reporting API',
+          path: '/api/'
+        }, {
+          title: 'API Reference v1.4',
+          description: 'API Spec for the Adobe Marketing Cloud',
+          path: 'https://adobedocs.github.io/analytics-1.4-apis/swagger-docs.html'
+        }]
       },
       {
         title: 'Support',
