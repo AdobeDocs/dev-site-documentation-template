@@ -2,12 +2,10 @@
 title: Overview - Adobe Analytics
 description: This is the overview page of Adobe Analytics
 contributors:
-  - https://github.com/simonwex 
+  - https://github.com/icaraps 
 ---
 
-<Hero slots="image, heading, text" background="rgb(64, 34, 138)"/>
-
-![Hero image](./hero-illustration.png) 
+<Hero slots="heading, text"/> 
 
 # Adobe Analytics 
 

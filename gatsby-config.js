@@ -14,11 +14,12 @@ module.exports = {
   siteMetadata: {
     home: {
       title: 'Adobe Analytics',
-      path: 'https://adobe.io'
+      path: 'https://business.adobe.com/products/analytics/adobe-analytics.html'
     },
     versions: [
       {
-        title: 'v2.0'
+        title: 'v2.0',
+        selected: true
       },
       {
         title: 'v1.4',
@@ -39,11 +40,11 @@ module.exports = {
         menu: [{
           title: 'API Reference v2.0',
           description: 'Adobe Analytics Reporting API',
-          path: '/api/'
+          path: '/api/index.md'
         }, {
           title: 'API Reference v1.4',
           description: 'API Spec for the Adobe Marketing Cloud',
-          path: 'https://adobedocs.github.io/analytics-1.4-apis/swagger-docs.html'
+          path: '/api/1.4.md'
         }]
       },
       {
