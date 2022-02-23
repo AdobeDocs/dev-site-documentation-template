@@ -10,6 +10,10 @@ on:
         description: 'Clean cache (yes|no)'
         required: true
         default: 'no'
+      excludeSubfolder:
+        description: 'Exclude a subfolder from deletion'
+        required: false
+        default: ''
 jobs:
   set-state:
     runs-on: ubuntu-latest
@@ -19,6 +23,7 @@ jobs:
       clean_cache: ${{ contains(github.event.inputs.clean, 'yes') }}
       path_prefix: ${{ steps.extract_path_prefix.outputs.path_prefix }}
       branch_short_ref: ${{ steps.extract_branch.outputs.branch }}
+      exclude_subfolder: ${{ github.event.inputs.excludeSubfolder }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
@@ -56,6 +61,7 @@ jobs:
       - run: echo "Repository name - ${{ github.event.repository.name }}"
       - run: echo "Repository branch - ${{ needs.set-state.outputs.branch_short_ref }}"
       - run: echo "Path prefix - ${{ needs.set-state.outputs.path_prefix }}"
+      - run: echo "Exclude subfolder - ${{ needs.set-state.outputs.exclude_subfolder }}"
 
   pre-build-dev:
     needs: [set-state]
@@ -126,6 +132,7 @@ jobs:
           target: ${{ needs.set-state.outputs.path_prefix }}
           connection-string: ${{ secrets.AIO_AZURE_DEV_CONNECTION_STRING }}
           remove-existing-files: 'true'
+          exclude-subfolder: ${{ needs.set-state.outputs.exclude_subfolder }}
       - name: Purge Fastly Cache
         uses: icaraps/gatsby-fastly-purge-action@master
         with:
@@ -204,6 +211,7 @@ jobs:
           target: ${{ needs.set-state.outputs.path_prefix }}
           connection-string: ${{ secrets.AIO_AZURE_PROD_CONNECTION_STRING }}
           remove-existing-files: 'true'
+          exclude-subfolder: ${{ needs.set-state.outputs.exclude_subfolder }}
       - name: Purge Fastly Cache
         uses: icaraps/gatsby-fastly-purge-action@master
         with:
