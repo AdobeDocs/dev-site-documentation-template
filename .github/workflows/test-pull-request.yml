@@ -1,10 +1,10 @@
 ---
 ###########################
 ###########################
-## Linter GitHub Actions ##
+## Pull request testing ##
 ###########################
 ###########################
-name: Lint Code Base
+name: Test a pull request
 
 #
 # Documentation:
@@ -23,7 +23,7 @@ on:
 # Set the Job #
 ###############
 jobs:
-  build:
+  lint:
     name: Lint Code Base
     # Set the agent to run on
     runs-on: ubuntu-latest
