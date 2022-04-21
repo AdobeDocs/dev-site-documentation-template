@@ -1,0 +1,67 @@
+---
+###########################
+###########################
+## Pull request testing ##
+###########################
+###########################
+name: Test a pull request
+
+#
+# Documentation:
+# - Workflow syntax: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+# - SuperLinter: https://github.com/github/super-linter
+# - Markdown linter: https://github.com/DavidAnson/markdownlint
+
+######################################################
+# Start the job on a pull request to the main branch #
+######################################################
+on:
+  pull_request:
+    branches: [main]
+
+###############
+# Set the Job #
+###############
+jobs:
+  lint:
+    name: Lint Code Base
+    # Set the agent to run on
+    runs-on: ubuntu-latest
+
+    ##################
+    # Load all steps #
+    ##################
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper list of changed files
+          # within `super-linter`
+          fetch-depth: 0
+
+      ################################
+      # Run Linter against code base #
+      ################################
+      - name: Lint Code Base
+        #
+        # Use full version number to avoid cases when a next
+        # released version is buggy
+        #
+        # About slim image: https://github.com/github/super-linter#slim-image
+        uses: github/super-linter/slim@v4.9.2
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_GITLEAKS: true
+          #
+          # The Markdown rules are defined at
+          # .github/linters/.markdown-lint.yml
+          #
+          # Documentation on rules:
+          # https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+          VALIDATE_MARKDOWN: true
+          VALIDATE_YAML: true
