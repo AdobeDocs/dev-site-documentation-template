@@ -109,6 +109,8 @@ jobs:
           PREFIX_PATHS: true # equivalent to --prefix-paths flag for 'gatsby build'
           PATH_PREFIX: ${{ needs.set-state.outputs.path_prefix }}
           GATSBY_ADOBE_LAUNCH_SRC: ${{ secrets.AIO_ADOBE_LAUNCH_DEV_SRC }}
+          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS: ${{ secrets.AIO_REPORT_SUITE_DEV}}
+          GATSBY_ADOBE_ANALYTICS_ENV: 'dev'
           REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.event.repository.owner.login }}
           REPO_NAME: ${{ github.event.repository.name }}
@@ -185,6 +187,8 @@ jobs:
           PREFIX_PATHS: true # equivalent to --prefix-paths flag for 'gatsby build'
           PATH_PREFIX: ${{ needs.set-state.outputs.path_prefix }}
           GATSBY_ADOBE_LAUNCH_SRC: ${{ secrets.AIO_ADOBE_LAUNCH_PROD_SRC }}
+          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS: ${{ secrets.AIO_REPORT_SUITE_PROD }}
+          GATSBY_ADOBE_ANALYTICS_ENV: 'production'
           REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.event.repository.owner.login }}
           REPO_NAME: ${{ github.event.repository.name }}
@@ -217,4 +221,3 @@ jobs:
         with:
           fastly-token: ${{ secrets.AIO_FASTLY_TOKEN }}
           fastly-url: '${{ secrets.AIO_FASTLY_PROD_URL }}${{ needs.set-state.outputs.path_prefix }}'
-
