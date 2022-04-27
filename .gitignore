@@ -9,7 +9,6 @@ yarn-error.log
 
 # OS and IDE generated files #
 ##############################
-/*.db
 .DS_Store
 .vscode
 .history
