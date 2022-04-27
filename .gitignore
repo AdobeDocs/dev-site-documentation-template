@@ -6,3 +6,11 @@ node_modules
 yarn-error.log
 .editorconfig
 .env
+
+# OS and IDE generated files #
+##############################
+/*.db
+.DS_Store
+.vscode
+.history
+/.idea
