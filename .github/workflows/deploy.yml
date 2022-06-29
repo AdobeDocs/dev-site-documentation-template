@@ -44,7 +44,7 @@ jobs:
             else if (!pathPrefix.startsWith('/') || !pathPrefix.endsWith('/')) {
               core.setFailed('Path prefix should start and end with "/"')
             }
-            core.setOutput('path_prefix', 'pathPrefix')
+            core.setOutput(path_prefix, pathPrefix)
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
