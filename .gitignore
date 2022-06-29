@@ -1,15 +1,33 @@
-# gatsby files
-.cache
-public
-node_modules
-
-yarn-error.log
 .editorconfig
-.env
-
-# OS and IDE generated files #
-##############################
+.idea
 .DS_Store
 .vscode
-.history
-/.idea
+
+# npm yarn
+node_modules
+package.lock
+yarn-error.log
+.pnp.*
+.yarn/*
+
+# keep in repo
+!.gitignore
+!.yarn.lock
+!.yarnrc.yml
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# gatsby files
+.env
+.cache
+public
+
+# cypress
+cypress/videos
+cypress/screenshots
+
+# lerna
+lerna-debug.log

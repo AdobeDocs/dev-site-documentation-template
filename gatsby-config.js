@@ -11,6 +11,7 @@
  */
 
 module.exports = {
+  pathPrefix: process.env.PATH_PREFIX || '/dev-site-documentation-template/',
   siteMetadata: {
     versions: [
       {
@@ -33,15 +34,18 @@ module.exports = {
       },
       {
         title: 'API Reference',
-        menu: [{
-          title: 'API Reference v2.0',
-          description: 'Adobe Analytics Reporting API',
-          path: '/api/index.md'
-        }, {
-          title: 'API Reference v1.4',
-          description: 'API Spec for the Adobe Marketing Cloud',
-          path: '/api/1.4.md'
-        }]
+        menu: [
+          {
+            title: 'API Reference v2.0',
+            description: 'Adobe Analytics Reporting API',
+            path: '/api/index.md'
+          },
+          {
+            title: 'API Reference v1.4',
+            description: 'API Spec for the Adobe Marketing Cloud',
+            path: '/api/1.4.md'
+          }
+        ]
       },
       {
         title: 'Support',
@@ -89,12 +93,12 @@ module.exports = {
             pages: [
               {
                 title: 'Reporting with single breakdowns',
-                path: '/guides/reporting_api/reporting_breakdowns/',
+                path: '/guides/reporting_api/reporting_breakdowns/'
               },
               {
                 title: 'Reporting with multiple breakdowns',
-                path: '/guides/reporting_api/reporting_breakdowns/reporting_multiple_breakdowns/',
-              },
+                path: '/guides/reporting_api/reporting_breakdowns/reporting_multiple_breakdowns/'
+              }
             ]
           },
           {
@@ -151,6 +155,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [`@adobe/gatsby-theme-aio`],
-  pathPrefix: process.env.PATH_PREFIX || '/dev-site-documentation-template/'
+  plugins: [`@adobe/gatsby-theme-aio`]
 };
