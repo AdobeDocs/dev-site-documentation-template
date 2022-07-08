@@ -51,8 +51,8 @@ jobs:
       - run: echo "Repository org - ${{ github.event.repository.owner.login }}"
       - run: echo "Repository name - ${{ github.event.repository.name }}"
       - run:
-          echo "Repository branch - ${{ needs.set-state.outputs.branch_short_ref
-          }}"
+          echo "Repository branch - ${{
+          needs.set-state.outputs.branch_short_ref}}"
       - run: echo "Path prefix - ${{ needs.set-state.outputs.path_prefix }}"
       - run:
           echo "Exclude subfolder - ${{

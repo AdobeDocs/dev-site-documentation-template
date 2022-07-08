@@ -4,7 +4,7 @@ module.exports = async ({ core }) => {
 
   try {
     core.setOutput('path_prefix', pathPrefix);
-    core.exportVariable('path_prefix', pathPrefix);
+    core.notice(`path_prefix in now set to: ${pathPrefix}`);
   } catch (err) {
     if (!pathPrefix) {
       core.setFailed('Missing path prefix');
