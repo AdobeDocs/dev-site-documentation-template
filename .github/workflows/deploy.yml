@@ -33,7 +33,7 @@ jobs:
         id: extract_pathPrefix
         with:
           script: |
-            const script = require('./.github/workflow/getPathPrefix.js')
+            const script = require('./getPathPrefix.js')
             await script({core})
           result-encoding: string
       - name: Extract branch name
