@@ -33,8 +33,21 @@ jobs:
         id: extract_pathPrefix
         with:
           script: |
-            const script = require('./getPathPrefix.js')
-            await script({core})
+            const { GITHUB_WORKSPACE } = process.env;
+            const { pathPrefix } = await require(`${GITHUB_WORKSPACE}/gatsby-config.js`);
+
+            try {
+              core.setOutput('path_prefix', pathPrefix);
+              core.notice(`path_prefix in now set to: ${pathPrefix}`);
+            } catch (err) {
+              if (!pathPrefix) {
+                core.setFailed('Missing path prefix');
+              } else if (pathPrefix === '/') {
+                core.setFailed('Path prefix "/" is not allowed');
+              } else if (!pathPrefix.startsWith('/') || !pathPrefix.endsWith('/')) {
+                core.setFailed('Path prefix should start and end with "/"');
+              }
+            }
           result-encoding: string
       - name: Extract branch name
         shell: bash
