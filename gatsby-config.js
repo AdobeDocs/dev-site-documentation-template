@@ -25,7 +25,7 @@ module.exports = {
     ],
     pages: [
       {
-        title: 'Adobe Analytics',
+        title: 'Cat Analytics',
         path: '/'
       },
       {
@@ -36,13 +36,13 @@ module.exports = {
         title: 'API Reference',
         menu: [
           {
-            title: 'API Reference v2.0',
-            description: 'Adobe Analytics Reporting API',
+            title: 'Cat Reference v2.0',
+            description: 'Cat Reporting API',
             path: '/api/index.md'
           },
           {
-            title: 'API Reference v1.4',
-            description: 'API Spec for the Adobe Marketing Cloud',
+            title: 'Cat Reference v1.4',
+            description: 'Cat API Spec',
             path: '/api/1.4.md'
           }
         ]
@@ -58,52 +58,12 @@ module.exports = {
         path: '/guides/',
         pages: [
           {
-            title: 'Overview',
-            path: '/guides/'
+            title: 'Dummy an OAuth Client',
+            path: '/guides/dummy_oauth_client/'
           },
           {
-            title: 'Creating an OAuth Client',
-            path: '/guides/creating_oauth_client/'
-          },
-          {
-            title: 'OAuth using cURL',
-            path: '/guides/oauth_using_curl/'
-          },
-          {
-            title: 'OAuth using POSTMAN',
-            path: '/guides/oauth_using_postman/'
-          },
-          {
-            title: 'JWT Authentication',
-            path: '/guides/jwt_authentication/'
-          }
-        ]
-      },
-      {
-        title: 'Reporting API',
-        path: '/guides/reporting_api/',
-        pages: [
-          {
-            title: 'Overview',
-            path: '/guides/reporting_api/'
-          },
-          {
-            title: 'Reporting with breakdowns',
-            path: '/guides/reporting_api/reporting_breakdowns/',
-            pages: [
-              {
-                title: 'Reporting with single breakdowns',
-                path: '/guides/reporting_api/reporting_breakdowns/'
-              },
-              {
-                title: 'Reporting with multiple breakdowns',
-                path: '/guides/reporting_api/reporting_breakdowns/reporting_multiple_breakdowns/'
-              }
-            ]
-          },
-          {
-            title: 'Reporting tips and tricks',
-            path: '/guides/reporting_api/reporting_tips_tricks/'
+            title: 'Dummy OAuth using POSTMAN',
+            path: '/guides/dummy_using_postman/'
           }
         ]
       },
