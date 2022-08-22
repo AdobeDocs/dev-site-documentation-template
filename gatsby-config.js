@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         title: 'v1.4',
-        path: 'https://github.com/AdobeDocs/analytics-1.4-apis'
+        path: 'https://github.com/AdobeDocs/dev-site'
       }
     ],
     pages: [
@@ -68,16 +68,8 @@ module.exports = {
         ]
       },
       {
-        title: 'Discovery API',
-        path: '/guides/discovery_api/'
-      },
-      {
-        title: 'Segments API',
-        path: '/guides/segments_api/'
-      },
-      {
-        title: 'Calculated Metrics API',
-        path: '/guides/calculated_metrics_api/'
+        title: 'Cat Metrics API',
+        path: '/guides/dummy_metrics_api/'
       },
       {
         title: 'Migrating',
