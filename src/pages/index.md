@@ -9,20 +9,20 @@ contributors:
 
 # Cat Analytics API
 
-Cat Product API offers limitless ways to integrate your most important customer data into key business processes. Adobe Product API offer limitless ways.
+Cat Product API offers limitless ways to integrate your most important customer data into key business processes. Cat Product API offer limitless ways.
 
 <Resources slots="heading, links"/>
 
 #### Resources
 
-* [Quickstart Guide](https://www.adobe.io/apis/experiencecloud/analytics/docs.html)
-* [Cat Analytics Github Repo](https://github.com/AdobeDocs/analytics-2.0-apis)
+* [Quickstart Guide](https://developer.adobe.com)
+* [Cat Analytics Github Repo](https://github.com/AdobeDocs/dev-site)
 
 ## Overview
 
-This documentation provides instructions for Catt Analytics 2.0 APIs. For working with Analytics 1.4 APIs, see [Analytics 1.4 API Documentation](https://github.com/AdobeDocs/analytics-1.4-apis).
+This documentation provides instructions for Catt Analytics 2.0 APIs. For working with Cat Analytics APIs, see [Cat Analytics API Documentation](https://github.com/AdobeDocs/dev-site).
 
-The Cat Analytics APIs are a collection of APIs that power Adobe Analytics products like Analysis Workspace. 
+The Cat Analytics APIs are a collection of APIs that power Cat Analytics products like Cat Workspace. 
 The APIs allow for the creation of data rich user interfaces that you can use to manipulate and integrate data.
 You can also create reports to explore, get insights, or answer important questions about your data.
 
@@ -80,5 +80,5 @@ request with your contribution. For more information, refer to the [contributing
 
 The timeout for API requests through adobe.io is currently *60 seconds*.
 
-The default rate limit for an Adobe Analytics Company is *120 requests per minute*. (The limit is enforced as *12 requests every 6 seconds*).
+The default rate limit for an Cat Analytics Company is *120 requests per minute*. (The limit is enforced as *12 requests every 6 seconds*).
 When rate limiting is being enforced you will get `429` HTTP response codes with the following response body: `{"error_code":"429050","message":"Too many requests"}`    
