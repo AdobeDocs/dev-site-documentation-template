@@ -24,7 +24,7 @@ jobs:
       clean_cache: ${{ contains(github.event.inputs.clean, 'yes') }}
       branch_short_ref: ${{ steps.extract_branch.outputs.branch }}
       exclude_subfolder: ${{ github.event.inputs.excludeSubfolder }}
-      path_prefix: ${{ steps.extract_pathPrefix.outputs.result }}
+      path_prefix: ${{ steps.extract_pathPrefix.outputs.path_prefix }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
