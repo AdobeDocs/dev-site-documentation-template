@@ -19,7 +19,7 @@ $ yarn dev
 For the documentation developer, please read these sections on how to:
 - [Arrange the structure content of your docs](https://github.com/adobe/aio-theme#content-structure)
 - [Linking to pages](https://github.com/adobe/aio-theme#links)
-- [Using assets](https://github.com/adobe/aio-theme-aio#assets)
+- [Using assets](https://github.com/adobe/aio-theme#assets)
 - [Setting Global Navigation](https://github.com/adobe/aio-theme#global-navigation)
 - [Setting Side Navigation](https://github.com/adobe/aio-theme#side-navigation)
 - [Using content blocks](https://github.com/adobe/aio-theme#jsx-blocks)
@@ -29,12 +29,12 @@ For more in-depth [instructions](https://github.com/adobe/aio-theme#getting-star
 
 ## How to deploy
 
-For any team that wishes to deploy to the adobe.io and stage.adobe.io website, they must be in contact with the dev-site team. Teams will be given a path that will follow the pattern `adobe.io/{product}/`. This will allow doc developers to setup their subpaths to look something like:
+For any team that wishes to deploy to the developer.adobe.com and developer-stage.adobe.com websites, they must be in contact with the dev-site team. Teams will be given a path that will follow the pattern `developer.adobe.com/{product}/`. This will allow doc developers to setup their subpaths to look something like:
 ```
-adobe.io/{product}/docs
-adobe.io/{product}/community
-adobe.io/{product}/community/code_of_conduct
-adobe.io/{product}/community/contribute
+developer.adobe.com/{product}/docs
+developer.adobe.com/{product}/community
+developer.adobe.com/{product}/community/code_of_conduct
+developer.adobe.com/{product}/community/contribute
 ```
 
 ### Launching a deploy
