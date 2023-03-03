@@ -63,6 +63,7 @@ jobs:
           # Documentation on rules:
           # https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
           VALIDATE_MARKDOWN: true
+          MARKDOWN_CONFIG_FILE: .markdownlint.yml
           VALIDATE_YAML: true
           VALIDATE_JSON: true
 
