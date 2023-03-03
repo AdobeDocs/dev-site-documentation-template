@@ -22,7 +22,7 @@ Cat Product API offers limitless ways to integrate your most important customer 
 
 This documentation provides instructions for Catt Analytics 2.0 APIs. For working with Cat Analytics APIs, see [Cat Analytics API Documentation](https://github.com/AdobeDocs/dev-site).
 
-The Cat Analytics APIs are a collection of APIs that power Cat Analytics products like Cat Workspace. 
+The Cat Analytics APIs are a collection of APIs that power Cat Analytics products like Cat Workspace.
 The APIs allow for the creation of data rich user interfaces that you can use to manipulate and integrate data.
 You can also create reports to explore, get insights, or answer important questions about your data.
 
@@ -72,7 +72,7 @@ Try the Analytics API with Swagger UI. Explore, make calls, with full endpoint d
 
 ## Contributing
 
-We encourage you to participate in our open documentation initiative, if you have suggestions, corrections, additions 
+We encourage you to participate in our open documentation initiative, if you have suggestions, corrections, additions
 or deletions for this documentation, check out the source from [this github repo](https://github.com/adobe/gatsby-theme-spectrum-example), and submit a pull
 request with your contribution. For more information, refer to the [contributing page](support/contribute/).
 
