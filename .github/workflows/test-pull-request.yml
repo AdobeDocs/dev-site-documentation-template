@@ -40,6 +40,7 @@ jobs:
           # Full git history is needed to get a proper list of changed files
           # within `super-linter`
           fetch-depth: 0
+      - run: cat .github/super-linter.env >> "$GITHUB_ENV"
 
       ################################
       # Run Linters against code base #
@@ -51,21 +52,10 @@ jobs:
         # About slim image: https://github.com/github/super-linter#slim-image
         uses: github/super-linter/slim@v4.10.1
         env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: false
           VALIDATE_GITHUB_ACTIONS: true
-          VALIDATE_GITLEAKS: true
-          #
-          # The Markdown rules are defined at
-          # .github/linters/.markdown-lint.yml
-          #
-          # Documentation on rules:
-          # https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
-          VALIDATE_MARKDOWN: true
-          MARKDOWN_CONFIG_FILE: .markdownlint.yml
-          VALIDATE_YAML: true
-          VALIDATE_JSON: true
 
       - name: Setup Node v16 for Yarn v3
         uses: actions/setup-node@v3
