@@ -25,13 +25,13 @@ Open discussion and support with community experts and Adobe staff.
 
 <DiscoverBlock slots="link, text" width="25%"/>
 
-[Experience league](https://adobe.io) 
+[Experience league](https://adobe.io)
 
 Tutorials and videos for the whole community.
 
 <DiscoverBlock slots="link, text" width="25%"/>
 
-[Experience forum](https://adobe.io) 
+[Experience forum](https://adobe.io)
 
 Forum to get help and help others
 
@@ -48,4 +48,3 @@ You've got a place to join the conversation.
 [Explore](https://adobe.io)
 
 Developer Q&A using a specific tag.
-
