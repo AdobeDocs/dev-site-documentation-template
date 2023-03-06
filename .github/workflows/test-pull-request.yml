@@ -40,7 +40,7 @@ jobs:
           # Full git history is needed to get a proper list of changed files
           # within `super-linter`
           fetch-depth: 0
-      - run: cat .github/super-linter.env >> "$GITHUB_ENV"
+      - run: cat ".github/super-linter.env" >> "$GITHUB_ENV"
 
       ################################
       # Run Linters against code base #
