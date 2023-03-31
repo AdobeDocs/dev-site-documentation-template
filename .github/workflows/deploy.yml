@@ -1,5 +1,5 @@
 ---
-name: Deploy
+name: Deployment
 on:
   workflow_dispatch:
     inputs:
@@ -22,37 +22,25 @@ jobs:
       deploy_prod: ${{ contains(github.event.inputs.env, 'prod') }}
       deploy_dev: ${{ contains(github.event.inputs.env, 'dev') }}
       clean_cache: ${{ contains(github.event.inputs.clean, 'yes') }}
-      branch_short_ref: ${{ steps.extract_branch.outputs.branch }}
+      path_prefix: ${{ steps.get_path_prefix.outputs.path_prefix }}
+      branch_short_ref: ${{ steps.get_branch.outputs.branch }}
       exclude_subfolder: ${{ github.event.inputs.excludeSubfolder }}
-      path_prefix: ${{ steps.extract_pathPrefix.outputs.path_prefix }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Extract path prefix
+
+      - name: Get pathPrefix
         uses: actions/github-script@v6
-        id: extract_pathPrefix
+        id: get_path_prefix
         with:
           script: |
-            const { GITHUB_WORKSPACE } = process.env;
-            const { pathPrefix } = await require(`${GITHUB_WORKSPACE}/gatsby-config.js`);
-
-            try {
-              core.setOutput('path_prefix', pathPrefix);
-              core.notice(`path_prefix in now set to: ${pathPrefix}`);
-            } catch (err) {
-              if (!pathPrefix) {
-                core.setFailed('Missing path prefix');
-              } else if (pathPrefix === '/') {
-                core.setFailed('Path prefix "/" is not allowed');
-              } else if (!pathPrefix.startsWith('/') || !pathPrefix.endsWith('/')) {
-                core.setFailed('Path prefix should start and end with "/"');
-              }
-            }
+            const script = require('./.github/scripts/get-path-prefix.js');
+            script({ core });
           result-encoding: string
-      - name: Extract branch name
+      - name: Get branch name
         shell: bash
-        run: echo "##[set-output name=branch;](${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+        run: echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+        id: get_branch
 
   echo-state:
     needs: [set-state]
@@ -63,13 +51,9 @@ jobs:
       - run: echo "Clean cache - ${{ needs.set-state.outputs.clean_cache }}"
       - run: echo "Repository org - ${{ github.event.repository.owner.login }}"
       - run: echo "Repository name - ${{ github.event.repository.name }}"
-      - run:
-          echo "Repository branch - ${{
-          needs.set-state.outputs.branch_short_ref}}"
+      - run: echo "Repository branch - ${{ needs.set-state.outputs.branch_short_ref }}"
       - run: echo "Path prefix - ${{ needs.set-state.outputs.path_prefix }}"
-      - run:
-          echo "Exclude subfolder - ${{
-          needs.set-state.outputs.exclude_subfolder }}"
+      - run: echo "Exclude subfolder - ${{ needs.set-state.outputs.exclude_subfolder }}"
 
   pre-build-dev:
     needs: [set-state]
@@ -79,13 +63,10 @@ jobs:
       - name: check dev azure connection string
         if: env.AIO_AZURE_DEV_CONNECTION_STRING == null
         run: |
-          echo "::error::Please set the Azure Blob Storage connection string
-          as AIO_AZURE_DEV_CONNECTION_STRING in Github Secrets"
-
+          echo "::error::Please set the Azure Blob Storage connection string as AIO_AZURE_DEV_CONNECTION_STRING in Github Secrets"
           exit 1
         env:
-          AIO_AZURE_DEV_CONNECTION_STRING:
-            ${{ secrets.AIO_AZURE_DEV_CONNECTION_STRING }}
+          AIO_AZURE_DEV_CONNECTION_STRING: ${{ secrets.AIO_AZURE_DEV_CONNECTION_STRING }}
 
   build-dev:
     defaults:
@@ -96,34 +77,52 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Setup Node v16 for Yarn v3
+        uses: actions/setup-node@v3
         with:
-          persist-credentials: false
-      - name: NPM Install
-        uses: bahmutov/npm-install@v1
+          node-version: '16.15.0' # Current LTS version
+
+      - name: Enable Corepack for Yarn v3
+        run: corepack enable
+
+      - name: Install Yarn v3
+        uses: borales/actions-yarn@v3
+        with:
+          cmd: set version stable
+
+      - name: Install Dependencies
+        uses: borales/actions-yarn@v3
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+        with:
+          cmd: install
+
       - name: Gatsby Cache
         uses: actions/cache@v2
         with:
           path: |
             public
             .cache
-          key:
-            ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{
-            github.run_id }}
+          key: ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{ github.run_id }}
           restore-keys: |
             ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-
+
       - name: Clean Cache
         if: needs.set-state.outputs.clean_cache == 'true'
-        run: |
-          npm run clean
-      - name: Build
-        run: |
-          npm run build
+        uses: borales/actions-yarn@v3
+        with:
+          cmd: clean
+
+      - name: Build site
+        uses: borales/actions-yarn@v3
+        with:
+          cmd: build
         env:
-          PREFIX_PATHS: true # works like --prefix-paths flag for 'gatsby build'
+          PREFIX_PATHS: true # equivalent to --prefix-paths flag for 'gatsby build'
           PATH_PREFIX: ${{ needs.set-state.outputs.path_prefix }}
           GATSBY_ADOBE_LAUNCH_SRC: ${{ secrets.AIO_ADOBE_LAUNCH_DEV_SRC }}
-          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS:
-            ${{ secrets.AIO_REPORT_SUITE_DEV}}
+          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS: ${{ secrets.AIO_REPORT_SUITE_DEV}}
           GATSBY_ADOBE_ANALYTICS_ENV: 'dev'
           REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.event.repository.owner.login }}
@@ -135,15 +134,15 @@ jobs:
           GOOGLE_DOCS_FOLDER_ID: ${{ secrets.GOOGLE_DOCS_FOLDER_ID }}
           GATSBY_IMS_SRC: ${{ secrets.AIO_IMS_DEV_SRC }}
           GATSBY_IMS_CONFIG: ${{ secrets.AIO_IMS_DEV_CONFIG }}
-          GATSBY_ALGOLIA_APPLICATION_ID:
-            ${{ secrets.AIO_ALGOLIA_APPLICATION_ID }}
-          GATSBY_ALGOLIA_SEARCH_API_KEY:
-            ${{ secrets.AIO_ALGOLIA_SEARCH_API_KEY }}
+          GATSBY_ALGOLIA_APPLICATION_ID: ${{ secrets.AIO_ALGOLIA_APPLICATION_ID }}
+          GATSBY_ALGOLIA_SEARCH_API_KEY: ${{ secrets.AIO_ALGOLIA_SEARCH_API_KEY }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.AIO_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.AIO_ALGOLIA_API_KEY }}
           GATSBY_ALGOLIA_INDEX_ALL_SRC: ${{ secrets.AIO_ALGOLIA_INDEX_ALL_SRC }}
           GATSBY_ALGOLIA_SEARCH_INDEX: ${{ secrets.AIO_ALGOLIA_SEARCH_INDEX }}
+          GATSBY_ALGOLIA_INDEX_ENV_PREFIX: ${{ secrets.AIO_ALGOLIA_INDEX_ENV_PREFIX }}
           GATSBY_FEDS_PRIVACY_ID: ${{ secrets.AIO_FEDS_PRIVACY_ID }}
+
       - name: Deploy
         uses: icaraps/static-website-deploy@master
         with:
@@ -160,9 +159,7 @@ jobs:
         uses: icaraps/gatsby-fastly-purge-action@master
         with:
           fastly-token: ${{ secrets.AIO_FASTLY_TOKEN }}
-          fastly-url:
-            '${{ secrets.AIO_FASTLY_DEV_URL}}${{
-            needs.set-state.outputs.path_prefix }}'
+          fastly-url: '${{ secrets.AIO_FASTLY_DEV_URL}}${{ needs.set-state.outputs.path_prefix }}'
 
   pre-build-production:
     needs: [set-state]
@@ -172,12 +169,10 @@ jobs:
       - name: check prod azure connection string
         if: env.AIO_AZURE_PROD_CONNECTION_STRING == null
         run: |
-          echo "::error::Please set the Azure Blob Storage connection string
-          as AIO_AZURE_PROD_CONNECTION_STRING in Github Secrets"
+          echo "::error::Please set the Azure Blob Storage connection string as AIO_AZURE_PROD_CONNECTION_STRING in Github Secrets"
           exit 1
         env:
-          AIO_AZURE_PROD_CONNECTION_STRING:
-            ${{ secrets.AIO_AZURE_PROD_CONNECTION_STRING }}
+          AIO_AZURE_PROD_CONNECTION_STRING: ${{ secrets.AIO_AZURE_PROD_CONNECTION_STRING }}
 
   build-production:
     defaults:
@@ -188,32 +183,52 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: NPM Install
-        uses: bahmutov/npm-install@v1
+
+      - name: Setup Node v16 for Yarn v3
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.15.0' # Current LTS version
+
+      - name: Enable Corepack for Yarn v3
+        run: corepack enable
+
+      - name: Install Yarn v3
+        uses: borales/actions-yarn@v3
+        with:
+          cmd: set version stable
+
+      - name: Install Dependencies
+        uses: borales/actions-yarn@v3
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
+        with:
+          cmd: install
+
       - name: Gatsby Cache
         uses: actions/cache@v2
         with:
           path: |
             public
             .cache
-          key:
-            ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{
-            github.run_id }}
+          key: ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{ github.run_id }}
           restore-keys: |
             ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-
+
       - name: Clean Cache
         if: needs.set-state.outputs.clean_cache == 'true'
-        run: |
-          npm run clean
-      - name: Build
-        run: |
-          npm run build
+        uses: borales/actions-yarn@v3
+        with:
+          cmd: clean
+
+      - name: Build site
+        uses: borales/actions-yarn@v3
+        with:
+          cmd: build
         env:
-          PREFIX_PATHS: true # works like --prefix-paths flag for 'gatsby build'
+          PREFIX_PATHS: true # equivalent to --prefix-paths flag for 'gatsby build'
           PATH_PREFIX: ${{ needs.set-state.outputs.path_prefix }}
           GATSBY_ADOBE_LAUNCH_SRC: ${{ secrets.AIO_ADOBE_LAUNCH_PROD_SRC }}
-          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS:
-            ${{ secrets.AIO_REPORT_SUITE_PROD }}
+          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS: ${{ secrets.AIO_REPORT_SUITE_PROD }}
           GATSBY_ADOBE_ANALYTICS_ENV: 'production'
           REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.event.repository.owner.login }}
@@ -225,18 +240,16 @@ jobs:
           GOOGLE_DOCS_FOLDER_ID: ${{ secrets.GOOGLE_DOCS_FOLDER_ID }}
           GATSBY_IMS_SRC: ${{ secrets.AIO_IMS_PROD_SRC }}
           GATSBY_IMS_CONFIG: ${{ secrets.AIO_IMS_PROD_CONFIG }}
-          GATSBY_ALGOLIA_APPLICATION_ID:
-            ${{ secrets.AIO_ALGOLIA_APPLICATION_ID }}
-          GATSBY_ALGOLIA_SEARCH_API_KEY:
-            ${{ secrets.AIO_ALGOLIA_SEARCH_API_KEY }}
+          GATSBY_ALGOLIA_APPLICATION_ID: ${{ secrets.AIO_ALGOLIA_APPLICATION_ID }}
+          GATSBY_ALGOLIA_SEARCH_API_KEY: ${{ secrets.AIO_ALGOLIA_SEARCH_API_KEY }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.AIO_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.AIO_ALGOLIA_API_KEY }}
           ALGOLIA_WRITE_API_KEY: ${{ secrets.AIO_ALGOLIA_WRITE_API_KEY }}
           ALGOLIA_INDEXATION_MODE: ${{ secrets.AIO_ALGOLIA_INDEXATION_MODE }}
-          ALGOLIA_INDEX_NAME:
-            ${{ secrets.ALGOLIA_INDEX_NAME || github.event.repository.name }}
+          ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME || github.event.repository.name }}
           GATSBY_ALGOLIA_INDEX_ALL_SRC: ${{ secrets.AIO_ALGOLIA_INDEX_ALL_SRC }}
           GATSBY_ALGOLIA_SEARCH_INDEX: ${{ secrets.AIO_ALGOLIA_SEARCH_INDEX }}
+          GATSBY_ALGOLIA_INDEX_ENV_PREFIX: ${{ secrets.AIO_ALGOLIA_INDEX_ENV_PREFIX }}
           GATSBY_FEDS_PRIVACY_ID: ${{ secrets.AIO_FEDS_PRIVACY_ID }}
       - name: Deploy
         uses: icaraps/static-website-deploy@master
@@ -254,6 +267,4 @@ jobs:
         uses: icaraps/gatsby-fastly-purge-action@master
         with:
           fastly-token: ${{ secrets.AIO_FASTLY_TOKEN }}
-          fastly-url:
-            '${{ secrets.AIO_FASTLY_PROD_URL }}${{
-            needs.set-state.outputs.path_prefix }}'
+          fastly-url: '${{ secrets.AIO_FASTLY_PROD_URL }}${{ needs.set-state.outputs.path_prefix }}'
