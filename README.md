@@ -6,7 +6,7 @@ View the [demo](https://adobedocs.github.io/dev-site-documentation-template/) ru
 
 ## Where to ask for help
 
-The slack channel #adobeio-onsite-onboarding is our main point of contact for help. Feel free to join the channel and ask any questions.
+The slack channel `#adobe-developer-website` is our main point of contact for help. Feel free to join the channel and ask any questions.
 
 ## How to develop
 
