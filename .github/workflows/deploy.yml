@@ -23,8 +23,10 @@ jobs:
       - name: check if private org
         if: env.AIO_IS_PRIVATE != null
         run: |
-          echo "::error::Please set deploy from AdobeDocs"
+          echo "::error::Please set deploy from AdobeDocsPrivate"
           exit 1
+        env:
+          AIO_IS_PRIVATE: ${{ secrets.AIO_IS_PRIVATE }}
 
   set-state:
     needs: [check-private]
@@ -72,12 +74,12 @@ jobs:
     if: needs.set-state.outputs.deploy_dev == 'true'
     steps:
       - name: check dev azure connection string
-        if: env.AIO_AZURE_DEV_CONNECTION_STRING == null
+        if: env.AIO_AZURE_DEV_PRIVATE_CONNECTION_STRING == null
         run: |
           echo "::error::Please set the Azure Blob Storage connection string as AIO_AZURE_DEV_CONNECTION_STRING in Github Secrets"
           exit 1
         env:
-          AIO_AZURE_DEV_CONNECTION_STRING: ${{ secrets.AIO_AZURE_DEV_CONNECTION_STRING }}
+          AIO_AZURE_DEV_PRIVATE_CONNECTION_STRING: ${{ secrets.AIO_AZURE_DEV_PRIVATE_CONNECTION_STRING }}
 
   build-dev:
     defaults:
