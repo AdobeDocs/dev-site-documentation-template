@@ -11,6 +11,7 @@
  */
 
 module.exports = {
+  pathPrefix: process.env.PATH_PREFIX || '/dev-site-documentation-template/',
   siteMetadata: {
     versions: [
       {
@@ -19,12 +20,12 @@ module.exports = {
       },
       {
         title: 'v1.4',
-        path: 'https://github.com/AdobeDocs/analytics-1.4-apis'
+        path: 'https://github.com/AdobeDocs/dev-site'
       }
     ],
     pages: [
       {
-        title: 'Adobe Analytics',
+        title: 'Cat Analytics',
         path: '/'
       },
       {
@@ -33,15 +34,18 @@ module.exports = {
       },
       {
         title: 'API Reference',
-        menu: [{
-          title: 'API Reference v2.0',
-          description: 'Adobe Analytics Reporting API',
-          path: '/api/index.md'
-        }, {
-          title: 'API Reference v1.4',
-          description: 'API Spec for the Adobe Marketing Cloud',
-          path: '/api/1.4.md'
-        }]
+        menu: [
+          {
+            title: 'Cat Reference v2.0',
+            description: 'Cat Reporting API',
+            path: '/api/index.md'
+          },
+          {
+            title: 'Cat Reference v1.4',
+            description: 'Cat API Spec',
+            path: '/api/1.4.md'
+          }
+        ]
       },
       {
         title: 'Support',
@@ -54,66 +58,18 @@ module.exports = {
         path: '/guides/',
         pages: [
           {
-            title: 'Overview',
-            path: '/guides/'
+            title: 'Dummy an OAuth Client',
+            path: '/guides/dummy_oauth_client/'
           },
           {
-            title: 'Creating an OAuth Client',
-            path: '/guides/creating_oauth_client/'
-          },
-          {
-            title: 'OAuth using cURL',
-            path: '/guides/oauth_using_curl/'
-          },
-          {
-            title: 'OAuth using POSTMAN',
-            path: '/guides/oauth_using_postman/'
-          },
-          {
-            title: 'JWT Authentication',
-            path: '/guides/jwt_authentication/'
+            title: 'Dummy OAuth using POSTMAN',
+            path: '/guides/dummy_using_postman/'
           }
         ]
       },
       {
-        title: 'Reporting API',
-        path: '/guides/reporting_api/',
-        pages: [
-          {
-            title: 'Overview',
-            path: '/guides/reporting_api/'
-          },
-          {
-            title: 'Reporting with breakdowns',
-            path: '/guides/reporting_api/reporting_breakdowns/',
-            pages: [
-              {
-                title: 'Reporting with single breakdowns',
-                path: '/guides/reporting_api/reporting_breakdowns/',
-              },
-              {
-                title: 'Reporting with multiple breakdowns',
-                path: '/guides/reporting_api/reporting_breakdowns/reporting_multiple_breakdowns/',
-              },
-            ]
-          },
-          {
-            title: 'Reporting tips and tricks',
-            path: '/guides/reporting_api/reporting_tips_tricks/'
-          }
-        ]
-      },
-      {
-        title: 'Discovery API',
-        path: '/guides/discovery_api/'
-      },
-      {
-        title: 'Segments API',
-        path: '/guides/segments_api/'
-      },
-      {
-        title: 'Calculated Metrics API',
-        path: '/guides/calculated_metrics_api/'
+        title: 'Cat Metrics API',
+        path: '/guides/dummy_metrics_api/'
       },
       {
         title: 'Migrating',
@@ -151,6 +107,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [`@adobe/gatsby-theme-aio`],
-  pathPrefix: process.env.PATH_PREFIX || '/dev-site-documentation-template/'
+  plugins: [`@adobe/gatsby-theme-aio`]
 };

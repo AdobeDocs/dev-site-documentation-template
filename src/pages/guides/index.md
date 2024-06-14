@@ -1,32 +1,26 @@
 ---
-title: Guides - Adobe Analytics
-description: This is the guides overview page of Adobe Analytics 
+title: Guides - Cat Analytics
+description: This is the guides overview page of Cat Analytics 
 ---
 
 # Get Started
 
-To get started with Analytics 2.0 APIs you must first decide whether your application will need
-an OAuth client or a JWT client.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada feugiat enim vel facilisis. Nunc eget enim eu lacus lobortis tincidunt a nec est. Nunc quis sapien quis orci rutrum sollicitudin. Nullam vehicula ultricies mauris, id aliquam justo aliquam vitae. Nam quis tincidunt ante. Curabitur sagittis aliquam elit, at auctor enim maximus et. Praesent in lectus facilisis, tempor magna eget, bibendum est. In quis ornare mi. Donec vestibulum viverra magna, non mollis leo vestibulum sit amet. Aenean euismod nulla augue, sit amet vehicula nibh faucibus vel. Fusce at est lacus. Nullam ante nulla, elementum nec ornare in, placerat luctus enim. Suspendisse vitae lacinia nibh. Pellentesque porta accumsan est at volutpat. Nulla aliquam dictum faucibus.
 
 ## Authentication
 
-There are multiple type of authentication for authenticating with the analytics APIs. General information
-about authenticating with Adobe's APIs is located here. Specific information related to authenticating
-with the analytics APIs is available in the sections below
+Mauris pellentesque ornare nulla. Proin fermentum elementum velit non consequat. Donec euismod nisl sed tellus sagittis, a consequat leo rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse neque justo, porttitor eget volutpat sed, suscipit nec mauris. Etiam nec egestas purus. Praesent suscipit in elit cursus consectetur. Duis blandit pulvinar odio, eget volutpat magna vestibulum interdum. Ut sed ultrices risus, vel gravida nisi. Sed vitae rutrum felis. Aliquam at eros molestie, sagittis augue sed, venenatis erat. Praesent at consectetur tellus, ut vehicula nunc. Pellentesque aliquet condimentum neque, fermentum consequat neque viverra vel. Aliquam accumsan dignissim turpis vitae consequat. Aenean id justo vel diam sollicitudin posuere. Sed eu mauris ac elit porta commodo et varius sem.
 
 ## OAuth
 
-Use an OAuth client if you are creating an application that requires an end use to authenticate before
-calling the Adobe Analytics APIs. The OAuth tokens expire after 24 hours and the end user must then
-re-authenticate before they will be able to call the APIs. To authenticate with an OAuth client, you first
-create an OAuth client on the [Adobe I/O Console](https://console.adobe.io).
+Donec imperdiet tempus ligula, sit amet pellentesque justo pharetra quis. Duis sed lacus diam. Maecenas sollicitudin diam sit amet pharetra placerat. Aliquam egestas lectus et tellus sagittis, venenatis finibus nisi volutpat. Cras laoreet, nisl sed faucibus laoreet, nibh arcu pretium enim, eget elementum ligula tellus vitae lorem. Aenean consequat in lorem at venenatis. Phasellus consequat dolor in libero vulputate rutrum. Nulla sit amet augue fringilla, elementum libero eget, accumsan velit. Suspendisse et lorem ornare, congue justo vel, ultrices felis. Ut et aliquet eros. Nulla facilisi. Nulla vitae velit a enim egestas eleifend. Etiam malesuada orci non mollis vulputate. Praesent id augue eget sapien lobortis bibendum. Praesent placerat tellus dui, vel facilisis magna condimentum in.
+
+[Adobe I/O Console](https://console.adobe.io).
 
 <InlineAlert variant="info" slots="text"/>
 
-The refresh token grant type is automatically added to OAuth clients created after September 18, 2019
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In urna tellus, fringilla sit amet lorem eget, dignissim pellentesque ligula. Donec nec dolor vitae leo laoreet aliquam vehicula at dui. Integer in tortor lacus. Aliquam convallis, lorem ac consectetur sodales, tellus.
 
 ## JWT
 
-A JWT client is best if you are creating an application that needs to programmatically authenticate calls to 
-the Adobe Analytics APIs. A new JWT token can be generated whenever the old one is about to expire so your application
-can continue to make API calls.  
+Donec imperdiet tempus ligula, sit amet pellentesque justo pharetra quis. Duis sed lacus diam. Maecenas sollicitudin diam sit amet pharetra placerat. Aliquam egestas lectus et tellus sagittis, venenatis finibus nisi volutpat. Cras laoreet, nisl sed faucibus laoreet, nibh arcu pretium enim, eget elementum ligula tellus vitae lorem. Aenean consequat in lorem at venenatis. Phasellus consequat dolor in libero vulputate rutrum. Nulla sit amet augue fringilla, elementum libero eget, accumsan velit. Suspendisse et lorem ornare, congue justo vel, ultrices felis. Ut et aliquet eros. Nulla facilisi. Nulla vitae velit a enim egestas eleifend. Etiam malesuada orci non mollis vulputate. Praesent id augue eget sapien lobortis bibendum. Praesent placerat tellus dui, vel facilisis magna condimentum in.

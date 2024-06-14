@@ -1,3 +1,4 @@
+---
 name: Deploy
 on:
   workflow_dispatch:
@@ -21,33 +22,36 @@ jobs:
       deploy_prod: ${{ contains(github.event.inputs.env, 'prod') }}
       deploy_dev: ${{ contains(github.event.inputs.env, 'dev') }}
       clean_cache: ${{ contains(github.event.inputs.clean, 'yes') }}
-      path_prefix: ${{ steps.extract_path_prefix.outputs.path_prefix }}
       branch_short_ref: ${{ steps.extract_branch.outputs.branch }}
       exclude_subfolder: ${{ github.event.inputs.excludeSubfolder }}
+      path_prefix: ${{ steps.extract_pathPrefix.outputs.result }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v3
       - name: Extract path prefix
-        uses: actions/github-script@v3
-        id: extract_path_prefix
+        uses: actions/github-script@v6
+        id: extract_pathPrefix
         with:
           script: |
-            const {pathPrefix} = require(`${process.env.GITHUB_WORKSPACE}/gatsby-config.js`)
-            if (!pathPrefix) {
-              core.setFailed('Missing path prefix')
+            const { GITHUB_WORKSPACE } = process.env;
+            const { pathPrefix } = await require(`${GITHUB_WORKSPACE}/gatsby-config.js`);
+
+            try {
+              core.setOutput('path_prefix', pathPrefix);
+              core.notice(`path_prefix in now set to: ${pathPrefix}`);
+            } catch (err) {
+              if (!pathPrefix) {
+                core.setFailed('Missing path prefix');
+              } else if (pathPrefix === '/') {
+                core.setFailed('Path prefix "/" is not allowed');
+              } else if (!pathPrefix.startsWith('/') || !pathPrefix.endsWith('/')) {
+                core.setFailed('Path prefix should start and end with "/"');
+              }
             }
-            else if (pathPrefix === '/') {
-              core.setFailed('Path prefix "/" is not allowed')
-            }
-            else if (!pathPrefix.startsWith('/') || !pathPrefix.endsWith('/')) {
-              core.setFailed('Path prefix should start and end with "/"')
-            }
-            core.setOutput('path_prefix', pathPrefix)
+          result-encoding: string
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "##[set-output name=branch;](${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
   echo-state:
@@ -59,9 +63,13 @@ jobs:
       - run: echo "Clean cache - ${{ needs.set-state.outputs.clean_cache }}"
       - run: echo "Repository org - ${{ github.event.repository.owner.login }}"
       - run: echo "Repository name - ${{ github.event.repository.name }}"
-      - run: echo "Repository branch - ${{ needs.set-state.outputs.branch_short_ref }}"
+      - run:
+          echo "Repository branch - ${{
+          needs.set-state.outputs.branch_short_ref}}"
       - run: echo "Path prefix - ${{ needs.set-state.outputs.path_prefix }}"
-      - run: echo "Exclude subfolder - ${{ needs.set-state.outputs.exclude_subfolder }}"
+      - run:
+          echo "Exclude subfolder - ${{
+          needs.set-state.outputs.exclude_subfolder }}"
 
   pre-build-dev:
     needs: [set-state]
@@ -71,10 +79,13 @@ jobs:
       - name: check dev azure connection string
         if: env.AIO_AZURE_DEV_CONNECTION_STRING == null
         run: |
-          echo "::error::Please set the Azure Blob Storage connection string as AIO_AZURE_DEV_CONNECTION_STRING in Github Secrets"
+          echo "::error::Please set the Azure Blob Storage connection string
+          as AIO_AZURE_DEV_CONNECTION_STRING in Github Secrets"
+
           exit 1
         env:
-          AIO_AZURE_DEV_CONNECTION_STRING: ${{ secrets.AIO_AZURE_DEV_CONNECTION_STRING }}
+          AIO_AZURE_DEV_CONNECTION_STRING:
+            ${{ secrets.AIO_AZURE_DEV_CONNECTION_STRING }}
 
   build-dev:
     defaults:
@@ -84,7 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
       - name: NPM Install
@@ -95,7 +106,9 @@ jobs:
           path: |
             public
             .cache
-          key: ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{ github.run_id }}
+          key:
+            ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{
+            github.run_id }}
           restore-keys: |
             ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-
       - name: Clean Cache
@@ -106,10 +119,11 @@ jobs:
         run: |
           npm run build
         env:
-          PREFIX_PATHS: true # equivalent to --prefix-paths flag for 'gatsby build'
+          PREFIX_PATHS: true # works like --prefix-paths flag for 'gatsby build'
           PATH_PREFIX: ${{ needs.set-state.outputs.path_prefix }}
           GATSBY_ADOBE_LAUNCH_SRC: ${{ secrets.AIO_ADOBE_LAUNCH_DEV_SRC }}
-          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS: ${{ secrets.AIO_REPORT_SUITE_DEV}}
+          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS:
+            ${{ secrets.AIO_REPORT_SUITE_DEV}}
           GATSBY_ADOBE_ANALYTICS_ENV: 'dev'
           REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.event.repository.owner.login }}
@@ -121,6 +135,10 @@ jobs:
           GOOGLE_DOCS_FOLDER_ID: ${{ secrets.GOOGLE_DOCS_FOLDER_ID }}
           GATSBY_IMS_SRC: ${{ secrets.AIO_IMS_DEV_SRC }}
           GATSBY_IMS_CONFIG: ${{ secrets.AIO_IMS_DEV_CONFIG }}
+          GATSBY_ALGOLIA_APPLICATION_ID:
+            ${{ secrets.AIO_ALGOLIA_APPLICATION_ID }}
+          GATSBY_ALGOLIA_SEARCH_API_KEY:
+            ${{ secrets.AIO_ALGOLIA_SEARCH_API_KEY }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.AIO_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.AIO_ALGOLIA_API_KEY }}
           GATSBY_ALGOLIA_INDEX_ALL_SRC: ${{ secrets.AIO_ALGOLIA_INDEX_ALL_SRC }}
@@ -135,11 +153,16 @@ jobs:
           connection-string: ${{ secrets.AIO_AZURE_DEV_CONNECTION_STRING }}
           remove-existing-files: 'true'
           exclude-subfolder: ${{ needs.set-state.outputs.exclude_subfolder }}
+      - name: Delay purge
+        run: sleep 60s
+        shell: bash
       - name: Purge Fastly Cache
         uses: icaraps/gatsby-fastly-purge-action@master
         with:
           fastly-token: ${{ secrets.AIO_FASTLY_TOKEN }}
-          fastly-url: '${{ secrets.AIO_FASTLY_DEV_URL}}${{ needs.set-state.outputs.path_prefix }}'
+          fastly-url:
+            '${{ secrets.AIO_FASTLY_DEV_URL}}${{
+            needs.set-state.outputs.path_prefix }}'
 
   pre-build-production:
     needs: [set-state]
@@ -149,10 +172,12 @@ jobs:
       - name: check prod azure connection string
         if: env.AIO_AZURE_PROD_CONNECTION_STRING == null
         run: |
-          echo "::error::Please set the Azure Blob Storage connection string as AIO_AZURE_PROD_CONNECTION_STRING in Github Secrets"
+          echo "::error::Please set the Azure Blob Storage connection string
+          as AIO_AZURE_PROD_CONNECTION_STRING in Github Secrets"
           exit 1
         env:
-          AIO_AZURE_PROD_CONNECTION_STRING: ${{ secrets.AIO_AZURE_PROD_CONNECTION_STRING }}
+          AIO_AZURE_PROD_CONNECTION_STRING:
+            ${{ secrets.AIO_AZURE_PROD_CONNECTION_STRING }}
 
   build-production:
     defaults:
@@ -162,9 +187,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v3
       - name: NPM Install
         uses: bahmutov/npm-install@v1
       - name: Gatsby Cache
@@ -173,7 +196,9 @@ jobs:
           path: |
             public
             .cache
-          key: ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{ github.run_id }}
+          key:
+            ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-${{
+            github.run_id }}
           restore-keys: |
             ${{ needs.set-state.outputs.branch_short_ref }}-gatsby-cache-
       - name: Clean Cache
@@ -184,10 +209,11 @@ jobs:
         run: |
           npm run build
         env:
-          PREFIX_PATHS: true # equivalent to --prefix-paths flag for 'gatsby build'
+          PREFIX_PATHS: true # works like --prefix-paths flag for 'gatsby build'
           PATH_PREFIX: ${{ needs.set-state.outputs.path_prefix }}
           GATSBY_ADOBE_LAUNCH_SRC: ${{ secrets.AIO_ADOBE_LAUNCH_PROD_SRC }}
-          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS: ${{ secrets.AIO_REPORT_SUITE_PROD }}
+          GATSBY_ADDITIONAL_ADOBE_ANALYTICS_ACCOUNTS:
+            ${{ secrets.AIO_REPORT_SUITE_PROD }}
           GATSBY_ADOBE_ANALYTICS_ENV: 'production'
           REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.event.repository.owner.login }}
@@ -199,11 +225,16 @@ jobs:
           GOOGLE_DOCS_FOLDER_ID: ${{ secrets.GOOGLE_DOCS_FOLDER_ID }}
           GATSBY_IMS_SRC: ${{ secrets.AIO_IMS_PROD_SRC }}
           GATSBY_IMS_CONFIG: ${{ secrets.AIO_IMS_PROD_CONFIG }}
-          ALGOLIA_WRITE_API_KEY: ${{ secrets.AIO_ALGOLIA_WRITE_API_KEY }}
-          ALGOLIA_INDEXATION_MODE: ${{ secrets.AIO_ALGOLIA_INDEXATION_MODE }}
-          ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME || github.event.repository.name }}
+          GATSBY_ALGOLIA_APPLICATION_ID:
+            ${{ secrets.AIO_ALGOLIA_APPLICATION_ID }}
+          GATSBY_ALGOLIA_SEARCH_API_KEY:
+            ${{ secrets.AIO_ALGOLIA_SEARCH_API_KEY }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.AIO_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.AIO_ALGOLIA_API_KEY }}
+          ALGOLIA_WRITE_API_KEY: ${{ secrets.AIO_ALGOLIA_WRITE_API_KEY }}
+          ALGOLIA_INDEXATION_MODE: ${{ secrets.AIO_ALGOLIA_INDEXATION_MODE }}
+          ALGOLIA_INDEX_NAME:
+            ${{ secrets.ALGOLIA_INDEX_NAME || github.event.repository.name }}
           GATSBY_ALGOLIA_INDEX_ALL_SRC: ${{ secrets.AIO_ALGOLIA_INDEX_ALL_SRC }}
           GATSBY_ALGOLIA_SEARCH_INDEX: ${{ secrets.AIO_ALGOLIA_SEARCH_INDEX }}
           GATSBY_FEDS_PRIVACY_ID: ${{ secrets.AIO_FEDS_PRIVACY_ID }}
@@ -216,8 +247,13 @@ jobs:
           connection-string: ${{ secrets.AIO_AZURE_PROD_CONNECTION_STRING }}
           remove-existing-files: 'true'
           exclude-subfolder: ${{ needs.set-state.outputs.exclude_subfolder }}
+      - name: Delay purge
+        run: sleep 60s
+        shell: bash
       - name: Purge Fastly Cache
         uses: icaraps/gatsby-fastly-purge-action@master
         with:
           fastly-token: ${{ secrets.AIO_FASTLY_TOKEN }}
-          fastly-url: '${{ secrets.AIO_FASTLY_PROD_URL }}${{ needs.set-state.outputs.path_prefix }}'
+          fastly-url:
+            '${{ secrets.AIO_FASTLY_PROD_URL }}${{
+            needs.set-state.outputs.path_prefix }}'

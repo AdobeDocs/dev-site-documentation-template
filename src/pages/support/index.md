@@ -1,6 +1,6 @@
 ---
-title: Support - Adobe Analytics
-description: This is the support page of Adobe Analytics 
+title: Support - Cat Analytics
+description: This is the support page of Cat Analytics 
 ---
 
 <Hero slots="heading, text" background="rgb(19, 93, 183)"/>
@@ -15,7 +15,7 @@ You've got a place to start discussions.
 
 <DiscoverBlock slots="image, heading, link, text" width="25%"/>
 
-![Adobe Experience Cloud](experience_cloud.png)
+![Cat Experience Cloud](experience_cloud.png)
 
 ### Developer forum
 
